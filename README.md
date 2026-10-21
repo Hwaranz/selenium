@@ -1,9 +1,5 @@
 # BÁO CÁO THỰC HÀNH KIỂM THỬ TỰ ĐỘNG VỚI SELENIUM WEBDRIVER
-> **Môn học / Chuyên đề:** Kiểm thử phần mềm & Đảm bảo chất lượng (Software Testing & QA)  
-> **Người thực hiện:** Hwaranz  
-> **GitHub Repository:** [https://github.com/Hwaranz/selenium](https://github.com/Hwaranz/selenium)  
-> **Website mục tiêu kiểm thử:** [SauceDemo (Swag Labs)](https://www.saucedemo.com/)  
-> **Công nghệ sử dụng:** Python 3.14, Selenium WebDriver 4.51+, Pytest, Pytest-HTML, GitHub Actions  
+**Người thực hiện:** Nguyễn Xuân Thanh  
 
 ---
 
