@@ -38,3 +38,6 @@ class TestLogout:
         assert login_page.is_login_page_displayed()
         error_msg = login_page.get_error_message()
         assert "You can only access '/inventory.html' when you are logged in" in error_msg
+
+        # Chụp ảnh màn hình hoàn thành test case
+        login_page.save_screenshot("tc08_logout_and_session_invalidation.png")

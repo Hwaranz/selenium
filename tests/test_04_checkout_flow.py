@@ -54,3 +54,6 @@ class TestCheckoutFlow:
         completion_msg = checkout_page.get_completion_header()
         assert "Thank you for your order!" in completion_msg, f"Thông báo thực tế: {completion_msg}"
         assert checkout_page.is_order_complete_displayed()
+
+        # Chụp ảnh màn hình hoàn thành test case
+        checkout_page.save_screenshot("tc07_complete_checkout_e2e.png")

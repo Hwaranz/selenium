@@ -50,3 +50,6 @@ class TestCartManagement:
         assert "Sauce Labs Backpack" not in remaining_names
         assert "Sauce Labs Bike Light" in remaining_names
         assert cart_page.get_cart_badge_count() == 1
+
+        # Chụp ảnh màn hình hoàn thành test case
+        cart_page.save_screenshot("tc06_cart_management.png")

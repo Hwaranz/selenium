@@ -24,6 +24,9 @@ class TestLogin:
         assert "inventory.html" in driver.current_url, f"URL thực tế: {driver.current_url}"
         assert inventory_page.get_page_title() == "Products"
 
+        # 4. Chụp ảnh màn hình hoàn thành test case
+        inventory_page.save_screenshot("tc01_valid_login.png")
+
     def test_tc02_locked_out_user(self, driver):
         """
         TC02: Đăng nhập với tài khoản bị khóa trong hệ thống.
@@ -39,6 +42,9 @@ class TestLogin:
         error_msg = login_page.get_error_message()
         assert "Sorry, this user has been locked out" in error_msg, f"Thông báo lỗi thực tế: {error_msg}"
 
+        # Chụp ảnh màn hình hoàn thành test case
+        login_page.save_screenshot("tc02_locked_out_user.png")
+
     def test_tc03_invalid_password(self, driver):
         """
         TC03: Đăng nhập với sai mật khẩu.
@@ -51,3 +57,6 @@ class TestLogin:
 
         error_msg = login_page.get_error_message()
         assert "Username and password do not match" in error_msg, f"Thông báo lỗi thực tế: {error_msg}"
+
+        # Chụp ảnh màn hình hoàn thành test case
+        login_page.save_screenshot("tc03_invalid_password.png")

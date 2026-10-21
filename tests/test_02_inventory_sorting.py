@@ -32,6 +32,9 @@ class TestInventorySorting:
             f"Danh sách giá thực tế: {prices}\nDanh sách kỳ vọng: {expected_sorted_prices}"
         )
 
+        # Chụp ảnh màn hình hoàn thành test case
+        inventory_page.save_screenshot("tc04_sort_price_low_to_high.png")
+
     def test_tc05_sort_price_high_to_low(self, driver):
         """
         TC05: Sắp xếp sản phẩm theo giá giảm dần (Price: high to low).
@@ -49,3 +52,6 @@ class TestInventorySorting:
         assert prices == expected_sorted_prices, (
             f"Danh sách giá thực tế: {prices}\nDanh sách kỳ vọng: {expected_sorted_prices}"
         )
+
+        # Chụp ảnh màn hình hoàn thành test case
+        inventory_page.save_screenshot("tc05_sort_price_high_to_low.png")

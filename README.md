@@ -16,9 +16,9 @@
    - 2.4. [Cơ chế đồng bộ hóa (Synchronization & Waits)](#24-cơ-chế-đồng-bộ-hóa-synchronization--waits)
    - 2.5. [Mô hình thiết kế Page Object Model (POM)](#25-mô-hình-thiết-kế-page-object-model-pom)
    - 2.6. [Tài liệu & Nguồn học tập tham khảo](#26-tài-liệu--nguồn-học-tập-tham-khảo)
-3. [Phần 2: Thiết kế kịch bản kiểm thử (Test Cases)](#3-phần-2-thiết-kế-kịch-bản-kiểm-thử-test-cases)
+3. [Phần 2: Thiết kế kịch bản & Minh chứng ảnh chụp kiểm thử (Test Cases & Screenshots)](#3-phần-2-thiết-kế-kịch-bản--minh-chứng-ảnh-chụp-kiểm-thử-test-cases--screenshots)
    - [Bảng tổng hợp kịch bản kiểm thử](#bảng-tổng-hợp-kịch-bản-kiểm-thử)
-   - [Chi tiết từng Test Case](#chi-tiết-từng-test-case)
+   - [Chi tiết và Ảnh chụp màn hình từng Test Case](#chi-tiết-và-ảnh-chụp-màn-hình-từng-test-case)
 4. [Phần 3: Kiến trúc & Cấu trúc mã nguồn](#4-phần-3-kiến-trúc--cấu-trúc-mã-nguồn)
 5. [Phần 4: Hướng dẫn cài đặt và thực thi](#5-phần-4-hướng-dẫn-cài-đặt-và-thực-thi)
 6. [Phần 5: Báo cáo kết quả kiểm thử](#6-phần-5-báo-cáo-kết-quả-kiểm-thử)
@@ -33,7 +33,7 @@ Trong quy trình phát triển phần mềm hiện đại (Agile / DevOps), **Ki
 Dự án này được xây dựng nhằm mục đích:
 1. Nghiên cứu sâu về công cụ kiểm thử giao diện người dùng **Selenium WebDriver**.
 2. Vận dụng kiến thức thực tế để xây dựng bộ kịch bản kiểm thử tự động hoàn chỉnh (tối thiểu 05 test cases, thực tế xây dựng **08 test cases**) cho ứng dụng thương mại điện tử **SauceDemo (Swag Labs)**.
-3. Áp dụng mô hình chuẩn công nghiệp **Page Object Model (POM)** kết hợp cùng framework kiểm thử **Pytest**, hỗ trợ xuất báo cáo HTML trực quan và tự động hóa CI/CD với **GitHub Actions**.
+3. Áp dụng mô hình chuẩn công nghiệp **Page Object Model (POM)** kết hợp cùng framework kiểm thử **Pytest**, tự động chụp ảnh màn hình minh chứng cho từng test case, hỗ trợ xuất báo cáo HTML trực quan và tự động hóa CI/CD với **GitHub Actions**.
 
 ---
 
@@ -147,26 +147,26 @@ Selenium cung cấp 3 cơ chế chờ:
 
 ---
 
-## 3. Phần 2: Thiết kế kịch bản kiểm thử (Test Cases)
+## 3. Phần 2: Thiết kế kịch bản & Minh chứng ảnh chụp kiểm thử (Test Cases & Screenshots)
 
-Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.com/`) làm ứng dụng mục tiêu. Đây là hệ thống thương mại điện tử mẫu chuẩn quốc tế được phát triển bởi Sauce Labs nhằm phục vụ nghiên cứu và thực hành kiểm thử phần mềm.
+Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.com/`) làm ứng dụng mục tiêu. Mỗi test case khi chạy xong đều tự động chụp lại ảnh màn hình kết quả thực tế và lưu vào thư mục `screenshots/`.
 
 ### Bảng tổng hợp kịch bản kiểm thử
 
-| Mã TC | Tên kịch bản kiểm thử | Mô tả nghiệp vụ | Trạng thái thực tế |
-| :---: | :--- | :--- | :---: |
-| **TC01** | `test_tc01_valid_login` | Đăng nhập thành công với thông tin tài khoản hợp lệ | **PASSED** |
-| **TC02** | `test_tc02_locked_out_user` | Kiểm tra xử lý lỗi khi đăng nhập bằng tài khoản bị khóa | **PASSED** |
-| **TC03** | `test_tc03_invalid_password` | Kiểm tra xử lý lỗi khi nhập sai mật khẩu | **PASSED** |
-| **TC04** | `test_tc04_sort_price_low_to_high` | Sắp xếp danh mục sản phẩm theo giá tăng dần (Low to High) | **PASSED** |
-| **TC05** | `test_tc05_sort_price_high_to_low` | Sắp xếp danh mục sản phẩm theo giá giảm dần (High to Low) | **PASSED** |
-| **TC06** | `test_tc06_add_and_remove_products_cart` | Thêm nhiều sản phẩm vào giỏ, kiểm tra badge và xóa sản phẩm | **PASSED** |
-| **TC07** | `test_tc07_complete_checkout_e2e` | Toàn bộ luồng mua hàng và thanh toán End-to-End (E2E) | **PASSED** |
-| **TC08** | `test_tc08_logout_and_session_invalidation` | Đăng xuất và xác thực cơ chế bảo mật phiên truy cập | **PASSED** |
+| Mã TC | Tên kịch bản kiểm thử | Mô tả nghiệp vụ | Trạng thái | Minh chứng ảnh chụp |
+| :---: | :--- | :--- | :---: | :---: |
+| **TC01** | `test_tc01_valid_login` | Đăng nhập thành công với tài khoản hợp lệ | **PASSED** | [Xem ảnh](#tc01-đăng-nhập-thành-công-với-tài-khoản-hợp-lệ) |
+| **TC02** | `test_tc02_locked_out_user` | Kiểm tra xử lý lỗi khi tài khoản bị khóa | **PASSED** | [Xem ảnh](#tc02-đăng-nhập-thất-bại-với-tài-khoản-bị-khóa) |
+| **TC03** | `test_tc03_invalid_password` | Kiểm tra thông báo lỗi khi nhập sai mật khẩu | **PASSED** | [Xem ảnh](#tc03-đăng-nhập-thất-bại-với-sai-mật-khẩu) |
+| **TC04** | `test_tc04_sort_price_low_to_high` | Sắp xếp danh mục sản phẩm theo giá tăng dần | **PASSED** | [Xem ảnh](#tc04-sắp-xếp-sản-phẩm-theo-giá-tăng-dần) |
+| **TC05** | `test_tc05_sort_price_high_to_low` | Sắp xếp danh mục sản phẩm theo giá giảm dần | **PASSED** | [Xem ảnh](#tc05-sắp-xếp-sản-phẩm-theo-giá-giảm-dần) |
+| **TC06** | `test_tc06_add_and_remove_products_cart` | Quản lý giỏ hàng: Thêm 2 món, xóa 1 món, kiểm tra badge | **PASSED** | [Xem ảnh](#tc06-quản-lý-giỏ-hàng-thêm--xóa-sản-phẩm) |
+| **TC07** | `test_tc07_complete_checkout_e2e` | Toàn bộ luồng mua hàng và thanh toán End-to-End | **PASSED** | [Xem ảnh](#tc07-quy-trình-mua-hàng--thanh-toán-hoàn-tất-end-to-end-checkout) |
+| **TC08** | `test_tc08_logout_and_session_invalidation` | Đăng xuất an toàn và kiểm tra bảo mật chặn URL trái phép | **PASSED** | [Xem ảnh](#tc08-đăng-xuất-an-toàn--kiểm-tra-bảo-mật-phiên) |
 
 ---
 
-### Chi tiết từng Test Case
+### Chi tiết và Ảnh chụp màn hình từng Test Case
 
 #### TC01: Đăng nhập thành công với tài khoản hợp lệ
 - **Mục tiêu:** Kiểm tra chức năng xác thực người dùng hoạt động chính xác khi cung cấp đúng thông tin.
@@ -180,6 +180,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Người dùng được chuyển hướng đến `https://www.saucedemo.com/inventory.html`, trang hiển thị tiêu đề "Products".
 - **Kết quả thực tế:** Chuyển hướng thành công, tiêu đề trang là "Products".
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC01 Valid Login](screenshots/tc01_valid_login.png)
+
+---
 
 #### TC02: Đăng nhập thất bại với tài khoản bị khóa
 - **Mục tiêu:** Kiểm tra hệ thống nhận diện và từ chối tài khoản có trạng thái khóa (Locked Out).
@@ -193,6 +198,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Hệ thống ở lại trang đăng nhập và hiển thị thông báo lỗi: *"Epic sadface: Sorry, this user has been locked out."*.
 - **Kết quả thực tế:** Thông báo lỗi hiển thị chính xác như kỳ vọng.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC02 Locked Out User](screenshots/tc02_locked_out_user.png)
+
+---
 
 #### TC03: Đăng nhập thất bại với sai mật khẩu
 - **Mục tiêu:** Kiểm tra hệ thống xử lý khi người dùng nhập sai mật khẩu.
@@ -205,6 +215,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Hiển thị thông báo lỗi: *"Epic sadface: Username and password do not match any user in this service"*.
 - **Kết quả thực tế:** Thông báo lỗi khớp 100%.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC03 Invalid Password](screenshots/tc03_invalid_password.png)
+
+---
 
 #### TC04: Sắp xếp sản phẩm theo giá tăng dần
 - **Mục tiêu:** Kiểm tra bộ lọc giá hiển thị danh sách từ sản phẩm rẻ nhất đến đắt nhất.
@@ -217,6 +232,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Mảng giá thu được trùng khớp hoàn toàn với mảng giá đã được hàm `sorted()` sắp xếp tăng dần: `prices == sorted(prices)`.
 - **Kết quả thực tế:** Dãy giá sắp xếp chính xác: `[$7.99, $9.99, $15.99, $15.99, $29.99, $49.99]`.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC04 Sort Low to High](screenshots/tc04_sort_price_low_to_high.png)
+
+---
 
 #### TC05: Sắp xếp sản phẩm theo giá giảm dần
 - **Mục tiêu:** Kiểm tra bộ lọc giá hiển thị danh sách từ đắt nhất đến rẻ nhất.
@@ -228,6 +248,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** `prices == sorted(prices, reverse=True)`.
 - **Kết quả thực tế:** Dãy giá: `[$49.99, $29.99, $15.99, $15.99, $9.99, $7.99]`.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC05 Sort High to Low](screenshots/tc05_sort_price_high_to_low.png)
+
+---
 
 #### TC06: Quản lý giỏ hàng (Thêm & Xóa sản phẩm)
 - **Mục tiêu:** Kiểm tra tính chính xác của số lượng sản phẩm trên icon badge và danh mục hàng trong giỏ.
@@ -243,6 +268,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Badge giảm còn `1`, sản phẩm "Backpack" bị xóa khỏi danh sách, chỉ còn lại "Bike Light".
 - **Kết quả thực tế:** Dữ liệu giỏ hàng được cập nhật tức thì và chính xác.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC06 Cart Management](screenshots/tc06_cart_management.png)
+
+---
 
 #### TC07: Quy trình mua hàng & thanh toán hoàn tất (End-to-End Checkout)
 - **Mục tiêu:** Kiểm tra toàn bộ luồng nghiệp vụ mua sắm từ đầu đến khi thanh toán thành công.
@@ -256,6 +286,11 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Chuyển sang trang `checkout-complete.html`, xuất hiện tiêu đề lớn: *"Thank you for your order!"* cùng nút "Back Home".
 - **Kết quả thực tế:** Đơn hàng được tạo thành công, giao diện cảm ơn hiển thị đầy đủ.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC07 Complete Checkout E2E](screenshots/tc07_complete_checkout_e2e.png)
+
+---
 
 #### TC08: Đăng xuất an toàn & Kiểm tra bảo mật phiên
 - **Mục tiêu:** Kiểm tra khả năng hủy phiên đăng nhập và ngăn chặn truy cập trái phép khi chưa xác thực.
@@ -268,6 +303,9 @@ Dự án lựa chọn website **SauceDemo (Swag Labs)** (`https://www.saucedemo.
 - **Kết quả mong đợi:** Hệ thống lập tức chặn truy cập, giữ người dùng ở trang đăng nhập và hiển thị thông báo lỗi bảo mật: *"Epic sadface: You can only access '/inventory.html' when you are logged in."*.
 - **Kết quả thực tế:** Chặn truy cập trái phép chính xác, thông báo lỗi xuất hiện chuẩn xác.
 - **Đánh giá:** **PASSED**.
+- **Minh chứng ảnh chụp hoàn thành Test Case:**
+
+![TC08 Logout & Session Invalidation](screenshots/tc08_logout_and_session_invalidation.png)
 
 ---
 
@@ -282,7 +320,7 @@ selenium/
 │       └── tests.yml            # CI/CD pipeline tự động chạy kiểm thử trên GitHub Actions
 ├── pages/                       # Tầng Page Object Model (chứa Locators và Actions)
 │   ├── __init__.py
-│   ├── base_page.py             # Lớp cơ sở chứa Explicit Waits và phương thức dùng chung
+│   ├── base_page.py             # Lớp cơ sở chứa Explicit Waits và hàm lưu screenshot
 │   ├── login_page.py            # Quản lý giao diện và nghiệp vụ trang Đăng nhập
 │   ├── inventory_page.py        # Quản lý trang Danh mục sản phẩm, sắp xếp và giỏ hàng
 │   ├── cart_page.py             # Quản lý trang Giỏ hàng và xóa sản phẩm
@@ -294,14 +332,22 @@ selenium/
 │   ├── test_03_cart_management.py   # TC06 (Quản lý giỏ hàng & badge)
 │   ├── test_04_checkout_flow.py     # TC07 (E2E quy trình mua sắm hoàn chỉnh)
 │   └── test_05_logout.py        # TC08 (Đăng xuất & kiểm tra phân quyền phiên)
-├── reports/                     # Thư mục chứa báo cáo và ảnh chụp màn hình khi lỗi
-│   ├── report.html              # Báo cáo kết quả kiểm thử định dạng HTML
-│   └── screenshots/             # Tự động chụp và lưu ảnh khi có test case thất bại
+├── screenshots/                 # Thư mục lưu ảnh chụp màn hình hoàn thành của các test case
+│   ├── tc01_valid_login.png
+│   ├── tc02_locked_out_user.png
+│   ├── tc03_invalid_password.png
+│   ├── tc04_sort_price_low_to_high.png
+│   ├── tc05_sort_price_high_to_low.png
+│   ├── tc06_cart_management.png
+│   ├── tc07_complete_checkout_e2e.png
+│   └── tc08_logout_and_session_invalidation.png
+├── reports/                     # Thư mục chứa báo cáo kết quả kiểm thử HTML
+│   └── report.html              # Báo cáo kết quả kiểm thử định dạng HTML
 ├── .gitignore                   # Loại trừ các file rác, bộ nhớ đệm khỏi Git
 ├── conftest.py                  # Pytest fixtures cấu hình WebDriver đa trình duyệt
 ├── pytest.ini                   # Cấu hình mặc định cho Pytest Runner
 ├── requirements.txt             # Danh sách thư viện phụ thuộc của dự án
-└── README.md                    # Tài liệu báo cáo dự án hoàn chỉnh
+└── README.md                    # Tài liệu báo cáo dự án hoàn chỉnh kèm minh chứng ảnh
 ```
 
 ---
@@ -341,11 +387,11 @@ selenium/
 
 ### 5.3. Các lệnh thực thi kiểm thử
 
-- **Chạy toàn bộ kiểm thử ở chế độ ngầm định (Headless Mode):**
+- **Chạy toàn bộ kiểm thử ở chế độ ngầm định (Headless Mode) và cập nhật ảnh chụp:**
   ```bash
   pytest
   ```
-  *(Mặc định hệ thống sử dụng Microsoft Edge headless, tự động xuất báo cáo tại `reports/report.html`)*
+  *(Mặc định hệ thống sử dụng Microsoft Edge headless, tự động xuất báo cáo tại `reports/report.html` và lưu ảnh vào `screenshots/`)*
 
 - **Chạy kiểm thử có hiển thị giao diện trình duyệt trực quan (Headed Mode):**
   ```bash
@@ -390,7 +436,7 @@ tests/test_04_checkout_flow.py::TestCheckoutFlow::test_tc07_complete_checkout_e2
 tests/test_05_logout.py::TestLogout::test_tc08_logout_and_session_invalidation PASSED
 
 --- Generated html report: file:///D:/vibecode/selenium/reports/report.html ---
-============================= 8 passed in 41.14s ==============================
+============================= 8 passed in 42.34s ==============================
 ```
 
 ---
@@ -401,7 +447,8 @@ tests/test_05_logout.py::TestLogout::test_tc08_logout_and_session_invalidation P
 1. Nắm vững lý thuyết nền tảng về kiểm thử tự động, kiến trúc giao tiếp W3C của Selenium WebDriver.
 2. Xây dựng thành công bộ kịch bản kiểm thử bao phủ toàn bộ các luồng nghiệp vụ quan trọng của một ứng dụng thương mại điện tử: Xác thực, Danh mục sản phẩm, Lọc/Sắp xếp, Giỏ hàng, Đặt hàng (E2E), và Đăng xuất bảo mật.
 3. Ứng dụng thành công mẫu thiết kế **Page Object Model (POM)** giúp cấu trúc dự án sáng sủa, độc lập giữa mã tương tác giao diện và mã kiểm thử.
-4. Tự động hóa hoàn toàn việc tạo báo cáo HTML và tích hợp kiểm thử liên tục (CI) qua GitHub Actions.
+4. Tự động chụp và gắn kèm ảnh chụp màn hình hoàn thành của từng test case trực tiếp vào báo cáo để làm minh chứng xác thực.
+5. Tự động hóa hoàn toàn việc tạo báo cáo HTML và tích hợp kiểm thử liên tục (CI) qua GitHub Actions.
 
 ### 7.2. Hướng mở rộng trong tương lai
 - **Data-Driven Testing (DDT):** Kết hợp đọc dữ liệu kiểm thử từ file bên ngoài (`JSON`, `CSV` hoặc `Excel`) để kiểm thử hàng loạt bộ dữ liệu khác nhau mà không cần sửa code.

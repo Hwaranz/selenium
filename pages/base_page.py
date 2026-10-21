@@ -1,3 +1,4 @@
+import os
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -64,3 +65,12 @@ class BasePage:
     def get_title(self) -> str:
         """Lấy tiêu đề trang."""
         return self.driver.title
+
+    def save_screenshot(self, filename: str) -> str:
+        """Chụp ảnh màn hình lưu vào thư mục screenshots/ của dự án để đưa vào báo cáo."""
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        screenshots_dir = os.path.join(root_dir, "screenshots")
+        os.makedirs(screenshots_dir, exist_ok=True)
+        filepath = os.path.join(screenshots_dir, filename)
+        self.driver.save_screenshot(filepath)
+        return filepath
